@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "RS Hour",
+    "date": "2026-03-13",
+    "time": "5:00 PM",
+    "description": "Join us for Restocking Hour! Quick trading and browsing.",
+    "link": "https://neopets.com/~linkhere"
+  },
+  {
+    "id": 2,
+    "name": "Game Hour",
+    "date": "2026-03-19",
+    "time": "2:00 PM",
+    "description": "Play Neopets games together and rack up points for the guild!",
+    "link": "https://neopets.com/~linkhere"
+  }
+]
