@@ -7,14 +7,15 @@
 
   <style>
     :root {
-      --bg: #050816;
-      --bg-alt: #0f172a;
-      --accent: #f97316;
-      --accent-soft: rgba(249,115,22,0.12);
-      --text: #f9fafb;
-      --muted: #9ca3af;
-      --card: #020617;
-      --border: rgba(148,163,184,0.25);
+      --orange: #eb7100;
+      --teal: #99c2b1;
+      --magenta: #be1348;
+      --purple: #9245ac;
+      --gold: #ffc255;
+      --vanilla: #f4ecdc;
+      --graphite: #1f1f1f;
+      --text: #f4ecdc;
+      --muted: #99c2b1;
     }
 
     * {
@@ -26,7 +27,7 @@
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+      background: radial-gradient(circle at top, #2d2420 0, var(--graphite) 55%, #000 100%);
       color: var(--text);
       display: flex;
       justify-content: center;
@@ -36,12 +37,12 @@
     .app {
       width: 100%;
       max-width: 480px;
-      background: linear-gradient(145deg, var(--bg) 0%, var(--bg-alt) 100%);
+      background: linear-gradient(145deg, #1a1816 0%, var(--graphite) 100%);
       border-radius: 24px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(153,194,177,0.15);
       box-shadow:
-        0 20px 60px rgba(15,23,42,0.8),
-        0 0 0 1px rgba(15,23,42,0.6);
+        0 20px 60px rgba(0,0,0,0.8),
+        0 0 0 1px rgba(0,0,0,0.6);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -49,8 +50,8 @@
 
     .app-header {
       padding: 16px 20px 12px;
-      border-bottom: 1px solid rgba(148,163,184,0.35);
-      background: radial-gradient(circle at top left, rgba(249,115,22,0.22), transparent 60%);
+      border-bottom: 1px solid rgba(153,194,177,0.2);
+      background: radial-gradient(circle at top left, rgba(235,113,0,0.15), transparent 60%);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -58,7 +59,7 @@
 
     .back-btn {
       background: none;
-      border: 1px solid rgba(148,163,184,0.5);
+      border: 1px solid rgba(153,194,177,0.3);
       color: var(--text);
       padding: 6px 10px;
       border-radius: 999px;
@@ -69,8 +70,8 @@
     }
 
     .back-btn:hover {
-      border-color: var(--accent);
-      background: rgba(249,115,22,0.12);
+      border-color: var(--orange);
+      background: rgba(235,113,0,0.12);
     }
 
     .app-title-block {
@@ -99,6 +100,70 @@
       max-height: calc(100vh - 200px);
     }
 
+    .mini-calendar {
+      background: rgba(235,113,0,0.08);
+      border: 1px solid rgba(235,113,0,0.25);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 4px;
+    }
+
+    .cal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .cal-month {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .cal-day-label {
+      font-size: 10px;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 600;
+      padding: 4px 0;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      border-radius: 6px;
+      color: var(--text);
+      position: relative;
+    }
+
+    .cal-day.event {
+      background: rgba(235,113,0,0.25);
+      border: 1px solid rgba(235,113,0,0.5);
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .cal-day.today {
+      background: rgba(153,194,177,0.2);
+      border: 1px solid var(--teal);
+    }
+
+    .cal-day.empty {
+      opacity: 0.3;
+    }
+
     .events-list {
       display: flex;
       flex-direction: column;
@@ -109,8 +174,8 @@
       position: relative;
       border-radius: 18px;
       padding: 14px 14px 12px;
-      background: radial-gradient(circle at top left, rgba(248,250,252,0.02), rgba(15,23,42,0.98));
-      border: 1px solid rgba(148,163,184,0.35);
+      background: radial-gradient(circle at top left, rgba(244,236,220,0.02), rgba(31,31,31,0.98));
+      border: 1px solid rgba(153,194,177,0.2);
       overflow: hidden;
       transition:
         transform 140ms ease-out,
@@ -123,8 +188,8 @@
       position: absolute;
       inset: -2px;
       background:
-        radial-gradient(circle at top left, rgba(251,146,60,0.18), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(56,189,248,0.18), transparent 55%);
+        radial-gradient(circle at top left, rgba(235,113,0,0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(146,69,172,0.18), transparent 55%);
       opacity: 0;
       transition: opacity 160ms ease-out;
       pointer-events: none;
@@ -137,9 +202,9 @@
     .event-card:hover {
       transform: translateY(-2px);
       box-shadow:
-        0 16px 40px rgba(15,23,42,0.9),
-        0 0 0 1px rgba(15,23,42,0.6);
-      border-color: rgba(249,115,22,0.85);
+        0 16px 40px rgba(0,0,0,0.9),
+        0 0 0 1px rgba(0,0,0,0.6);
+      border-color: rgba(235,113,0,0.6);
     }
 
     .event-date {
@@ -154,12 +219,12 @@
       font-size: 15px;
       font-weight: 600;
       margin-bottom: 4px;
-      color: #f9fafb;
+      color: var(--vanilla);
     }
 
     .event-time {
       font-size: 12px;
-      color: var(--accent);
+      color: var(--orange);
       margin-bottom: 6px;
     }
 
@@ -172,9 +237,9 @@
 
     .event-link {
       font-size: 11px;
-      color: #38bdf8;
+      color: var(--teal);
       text-decoration: none;
-      border: 1px solid rgba(56,189,248,0.6);
+      border: 1px solid rgba(153,194,177,0.4);
       padding: 4px 8px;
       border-radius: 6px;
       display: inline-block;
@@ -182,8 +247,8 @@
     }
 
     .event-link:hover {
-      background: rgba(56,189,248,0.12);
-      border-color: #38bdf8;
+      background: rgba(153,194,177,0.12);
+      border-color: var(--teal);
     }
 
     .empty-state {
@@ -223,11 +288,41 @@
     </header>
 
     <main class="app-main">
+      <div class="mini-calendar" id="calendar"></div>
       <div class="events-list" id="eventsList"></div>
     </main>
   </div>
 
   <script>
+    // Build calendar for March 2026
+    function buildCalendar() {
+      const calendarEl = document.getElementById('calendar');
+      const today = 9; // March 9th
+      const eventDays = [13, 19]; // Days with events
+      
+      const header = '<div class="cal-header"><div class="cal-month">March 2026</div></div>';
+      
+      const dayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+      const labelRow = dayLabels.map(d => `<div class="cal-day-label">${d}</div>`).join('');
+      
+      // March 2026 starts on Sunday, has 31 days
+      let days = '';
+      for (let i = 1; i <= 31; i++) {
+        let classes = 'cal-day';
+        if (i === today) classes += ' today';
+        if (eventDays.includes(i)) classes += ' event';
+        days += `<div class="${classes}">${i}</div>`;
+      }
+      
+      calendarEl.innerHTML = `
+        ${header}
+        <div class="cal-grid">
+          ${labelRow}
+          ${days}
+        </div>
+      `;
+    }
+
     async function loadEvents() {
       try {
         const response = await fetch('events.json');
@@ -254,6 +349,7 @@
       }
     }
 
+    buildCalendar();
     loadEvents();
   </script>
 </body>
