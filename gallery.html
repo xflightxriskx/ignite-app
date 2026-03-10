@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - Ignite Guild App</title>
+  <style>
+    :root {
+      --orange: #eb7100;
+      --teal: #99c2b1;
+      --magenta: #be1348;
+      --purple: #9245ac;
+      --gold: #ffc255;
+      --vanilla: #f4ecdc;
+      --graphite: #1f1f1f;
+      --text: #f4ecdc;
+      --muted: #99c2b1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #2d2420 0, var(--graphite) 55%, #000 100%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      background: linear-gradient(145deg, #1a1816 0%, var(--graphite) 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(153,194,177,0.15);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.8),
+        0 0 0 1px rgba(0,0,0,0.6);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-header {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid rgba(153,194,177,0.25);
+      background: radial-gradient(circle at top left, rgba(235,113,0,0.15), transparent 60%);
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(153,194,177,0.1);
+      border: 1px solid rgba(153,194,177,0.3);
+      border-radius: 12px;
+      color: var(--teal);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .back-button:hover {
+      background: rgba(153,194,177,0.2);
+      border-color: var(--teal);
+    }
+
+    .app-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .page-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: radial-gradient(circle at 30% 30%, var(--gold), var(--orange) 40%, var(--magenta) 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .app-title-block h1 {
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .app-content {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .gallery-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .gallery-item {
+      background: linear-gradient(135deg, rgba(31,31,31,0.9), rgba(31,31,31,0.6));
+      border: 1px solid rgba(153,194,177,0.2);
+      border-radius: 16px;
+      padding: 16px;
+      transition: all 0.3s;
+    }
+
+    .gallery-item:hover {
+      border-color: var(--orange);
+      box-shadow: 0 8px 24px rgba(235,113,0,0.3);
+    }
+
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .gallery-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--vanilla);
+      margin-bottom: 4px;
+    }
+
+    .gallery-author {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .gallery-badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(153,194,177,0.4);
+      background: rgba(31,31,31,0.9);
+      color: var(--muted);
+    }
+
+    .gallery-badge.art { border-color: var(--magenta); color: var(--magenta); }
+    .gallery-badge.writing { border-color: var(--purple); color: var(--purple); }
+
+    .gallery-description {
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(244,236,220,0.8);
+      margin-bottom: 12px;
+    }
+
+    .gallery-date {
+      font-size: 12px;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="app-header">
+      <a href="index.html" class="back-button">← Back to Home</a>
+      
+      <div class="app-title-row">
+        <div class="page-icon">🎨</div>
+        <div class="app-title-block">
+          <h1>Gallery & Archive</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-content">
+      <div class="gallery-grid" id="gallery-container">
+        <!-- Gallery items will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load gallery items from gallery.json
+    fetch('gallery.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('gallery-container');
+        data.items.forEach(item => {
+          const itemEl = document.createElement('div');
+          itemEl.className = 'gallery-item';
+          itemEl.innerHTML = `
+            <div class="gallery-header">
+              <div>
+                <div class="gallery-title">${item.title}</div>
+                <div class="gallery-author">by ${item.author}</div>
+              </div>
+              <span class="gallery-badge ${item.type}">${item.type}</span>
+            </div>
+            <div class="gallery-description">${item.description}</div>
+            <div class="gallery-date">${item.date}</div>
+          `;
+          container.appendChild(itemEl);
+        });
+      });
+  </script>
+</body>
+</html>
