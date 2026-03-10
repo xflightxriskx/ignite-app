@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "category": "Getting Started",
+    "links": [
+      {
+        "title": "Guild Rules & Guidelines",
+        "url": "https://neopets.com/~linkhere",
+        "description": "Essential rules for all Ignite members."
+      },
+      {
+        "title": "Welcome Guide",
+        "url": "https://neopets.com/~linkhere",
+        "description": "Everything new members need to know."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "category": "Battledome",
+    "links": [
+      {
+        "title": "BD Training Guide",
+        "url": "https://neopets.com/~linkhere",
+        "description": "Complete training strategy for guild members."
+      },
+      {
+        "title": "Weapons Guide",
+        "url": "https://neopets.com/~linkhere",
+        "description": "Recommended weapons by budget."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "category": "Guild Resources",
+    "links": [
+      {
+        "title": "Guild Homepage",
+        "url": "https://neopets.com/~linkhere",
+        "description": "Main Ignite guild page."
+      },
+      {
+        "title": "Event Archive",
+        "url": "https://neopets.com/~linkhere",
+        "description": "Past guild events and results."
+      }
+    ]
+  }
+]
