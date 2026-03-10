@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guides - Ignite Guild App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --orange: #eb7100;
+      --teal: #99c2b1;
+      --magenta: #be1348;
+      --purple: #9245ac;
+      --gold: #ffc255;
+      --vanilla: #f4ecdc;
+      --graphite: #1f1f1f;
+      --text: #f4ecdc;
+      --muted: #99c2b1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #2d2420 0, var(--graphite) 55%, #000 100%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      background: linear-gradient(145deg, #1a1816 0%, var(--graphite) 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(153,194,177,0.15);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.8),
+        0 0 0 1px rgba(0,0,0,0.6);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-header {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid rgba(153,194,177,0.2);
+      background: radial-gradient(circle at top left, rgba(235,113,0,0.15), transparent 60%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      background: none;
+      border: 1px solid rgba(153,194,177,0.3);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 140ms ease-out;
+    }
+
+    .back-btn:hover {
+      border-color: var(--orange);
+      background: rgba(235,113,0,0.12);
+    }
+
+    .app-title-block {
+      flex: 1;
+    }
+
+    .app-title-block h1 {
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .app-title-block p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .app-main {
+      padding: 16px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      overflow-y: auto;
+      max-height: calc(100vh - 200px);
+    }
+
+    .guides-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .category-section {
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(235,113,0,0.06);
+      border: 1px solid rgba(235,113,0,0.2);
+    }
+
+    .category-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(235,113,0,0.25);
+    }
+
+    .links-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .link-card {
+      position: relative;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: radial-gradient(circle at top left, rgba(244,236,220,0.02), rgba(31,31,31,0.98));
+      border: 1px solid rgba(153,194,177,0.2);
+      text-decoration: none;
+      display: block;
+      transition:
+        transform 120ms ease-out,
+        box-shadow 120ms ease-out,
+        border-color 140ms ease-out;
+    }
+
+    .link-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+      border-color: rgba(235,113,0,0.6);
+    }
+
+    .link-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 3px;
+      color: var(--vanilla);
+    }
+
+    .link-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .link-external {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 11px;
+      color: var(--teal);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      .app {
+        border-radius: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <a href="index.html" class="back-btn">← Back</a>
+      <div class="app-title-block">
+        <h1>Guides</h1>
+        <p>Resources & petpages</p>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <div class="guides-list" id="guidesList"></div>
+    </main>
+  </div>
+
+  <script>
+    async function loadGuides() {
+      try {
+        const response = await fetch('guides.json');
+        const categories = await response.json();
+        const guidesList = document.getElementById('guidesList');
+
+        if (!categories || categories.length === 0) {
+          guidesList.innerHTML = '<div class="empty-state"><p>No guides available yet.</p></div>';
+          return;
+        }
+
+        guidesList.innerHTML = categories.map(category => `
+          <div class="category-section">
+            <div class="category-title">${category.category}</div>
+            <div class="links-grid">
+              ${category.links.map(link => `
+                <a href="${link.url}" target="_blank" class="link-card">
+                  <span class="link-external">→</span>
+                  <div class="link-title">${link.title}</div>
+                  <div class="link-desc">${link.description}</div>
+                </a>
+              `).join('')}
+            </div>
+          </div>
+        `).join('');
+      } catch (error) {
+        console.error('Error loading guides:', error);
+        document.getElementById('guidesList').innerHTML = '<div class="empty-state"><p>Error loading guides. Please try again.</p></div>';
+      }
+    }
+
+    loadGuides();
+  </script>
+</body>
+</html>
