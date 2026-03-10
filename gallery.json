@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Fyora's Grace",
+    "artist": "Username123",
+    "type": "Art",
+    "date": "2026-02-15",
+    "description": "Digital painting of the Faerie Queen.",
+    "thumbnail": "https://via.placeholder.com/300x200/eb7100/f4ecdc?text=Fyora",
+    "link": "https://neopets.com/~linkhere"
+  },
+  {
+    "id": 2,
+    "title": "The Battle of Meridell",
+    "artist": "ArtLover456",
+    "type": "Writing",
+    "date": "2026-02-20",
+    "description": "A short story about courage and friendship.",
+    "thumbnail": "https://via.placeholder.com/300x200/9245ac/f4ecdc?text=Story",
+    "link": "https://neopets.com/~linkhere"
+  },
+  {
+    "id": 3,
+    "title": "Darigan Citadel Sunset",
+    "artist": "PixelMaster789",
+    "type": "Art",
+    "date": "2026-03-01",
+    "description": "Acrylic painting of the citadel at dusk.",
+    "thumbnail": "https://via.placeholder.com/300x200/be1348/f4ecdc?text=Citadel",
+    "link": "https://neopets.com/~linkhere"
+  },
+  {
+    "id": 4,
+    "title": "Tales from Mystery Island",
+    "artist": "StoryWeaver",
+    "type": "Writing",
+    "date": "2026-03-05",
+    "description": "Adventure series featuring guild members.",
+    "thumbnail": "https://via.placeholder.com/300x200/99c2b1/1f1f1f?text=Tales",
+    "link": "https://neopets.com/~linkhere"
+  }
+]
